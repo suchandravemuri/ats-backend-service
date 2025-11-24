@@ -1,0 +1,14 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "node",
+        "request": "launch",
+        "name": "Debug Backend",
+        "program": "${workspaceFolder}/dist/index.js",
+        "runtimeExecutable": "/home/suchandra/.nvm/versions/node/v22.13.0/bin/node",
+        "cwd": "${workspaceFolder}"
+      }
+    ]
+  }
+  
