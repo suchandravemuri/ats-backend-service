@@ -1,6 +1,6 @@
 import { Router } from "express";
 import multer from "multer";
-import { addCandidate, getCandidates } from "../controllers/candidatesController";
+import { addCandidate, getCandidates, evaluate } from "../controllers/candidatesController";
 
 const router = Router();
 const upload = multer({ storage: multer.memoryStorage() });
@@ -9,5 +9,7 @@ const upload = multer({ storage: multer.memoryStorage() });
 router.post("/", upload.single("resume"), addCandidate);
 
 router.get("/", getCandidates);
+
+router.post("/evaluate",evaluate)
 
 export default router;

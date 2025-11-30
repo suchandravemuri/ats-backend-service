@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { Candidate } from "../models/candidate.model";
 import { uploadToS3 } from "../services/s3.service";
+import {runnable} from "../langraph-service/ranking-graph"
 import {Types} from "mongoose"
 export const addCandidate = async (req: Request, res: Response) => {
     try {
@@ -40,3 +41,15 @@ export const getCandidates = async (_req: Request, res: Response) => {
     return res.status(500).json({ error: "Server error" });
   }
 };
+
+export const evaluate = async(req:Request, res: Response) => {
+  try{
+    const jobId = req.body.jobId as string;
+    const result = await runnable.invoke({
+      jobId: jobId
+    });
+  }
+  catch(err){
+    return res.status(500).json({ error: "Server error" });
+  }
+}
