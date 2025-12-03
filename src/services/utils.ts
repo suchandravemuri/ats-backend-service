@@ -30,7 +30,7 @@ export async function fetchAndExtractText(s3Url: string): Promise<string> {
         const pdfBuffer = await streamToBuffer(res.Body);
         const header = pdfBuffer.slice(0, 5).toString();
         if (header.startsWith("%PDF")) {
-            return "jldbskdbbbbbbhdhbsdf";
+  
             console.log("File detected as PDF → parsing");
             const pdfParse = (pdf as any).default || pdf;
             const data = await pdfParse(pdfBuffer);
