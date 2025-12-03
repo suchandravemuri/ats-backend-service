@@ -1,12 +1,13 @@
 import express from "express";
 import mongoose from "mongoose";
-import { config } from "dotenv";
 import candidateRoutes from "./routes/candidate.routes";
 import cors from "cors";
 import jobRoutes from "./routes/job.routes";
+import dotenv from "dotenv";
+dotenv.config();
+
 const app = express();
 const PORT = 3000;
-config()
 app.use(cors());
 app.use(express.json()); 
 app.use("/api/candidates", candidateRoutes);

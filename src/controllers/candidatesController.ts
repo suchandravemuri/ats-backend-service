@@ -48,8 +48,27 @@ export const evaluate = async(req:Request, res: Response) => {
     const result = await runnable.invoke({
       jobId: jobId
     });
+
+    if (!result.ranked || !Array.isArray(result.ranked)) {
+      return res.status(400).json({ error: "No ranked results returned" });
+    }
+    const updates = result.ranked.map(async (c: any) => {
+      return Candidate.findOneAndUpdate(
+        { _id: c.id, jobId },
+        {
+          score: c.score?.toString() || "",
+          rank: c.rank,
+          reasoning: c.reasoning || "",
+        },
+        { new: true, upsert: false }
+      );
+    });
+
+    await Promise.all(updates);
+
+    return res.status(200).json({ success: true, updatedCount: updates.length });
   }
   catch(err){
-    return res.status(500).json({ error: "Server error" });
+    return res.status(500).json({ error: JSON.stringify(err) });
   }
 }

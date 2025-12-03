@@ -36,7 +36,8 @@ export async function fetchAndExtractText(s3Url: string): Promise<string> {
             const data = await pdfParse(pdfBuffer);
             return data.text || "";
         }
-        return pdfBuffer.toString("utf-8");
+        return pdfBuffer.toString("utf-8").replace(/\n/g, "");
+
     } catch (err) {
         console.error("Error extracting text:", err);
         return "";
