@@ -1,7 +1,7 @@
 import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3";
 import pdf from "pdf-parse";
 
-// S3 client (uses IAM role, env creds, or AWS_ACCESS_KEY/SECRET)
+
 const s3 = new S3Client({
     region: process.env.AWS_REGION,
     credentials: {
@@ -12,8 +12,7 @@ const s3 = new S3Client({
 
 export async function fetchAndExtractText(s3Url: string): Promise<string> {
     try {
-        // Example S3 URL format:
-        // https://your-bucket.s3.amazonaws.com/resumes/abc.pdf
+
         const { bucket, key } = parseS3Url(s3Url);
         const command = new GetObjectCommand({
             Bucket: bucket,
